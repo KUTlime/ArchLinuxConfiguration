@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+MimeType=inode/directory;
+Actions=runMyCommand
+X-KDE-Priority=TopLevel
+
+[Desktop Action runMyCommand]
+Name=Gemini here
+Icon=utilities-terminal
+Exec=konsole --workdir %f --noclose -e "bash -c 'gemini; exec bash'"
