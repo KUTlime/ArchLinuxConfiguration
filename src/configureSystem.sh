@@ -26,6 +26,8 @@ makepkg -si
 # Setup git config
 git config --global user.name "KUTlime"
 git config --global user.email "kutlime@gmail.com"
+git config --global commit.gpgsign true
+git config --global user.signingkey E6F5C966FC0D7CE0
 
 # Fingerprint reader
 sudo pacman -S fprintd imagemagick alsa-utils --noconfirm
