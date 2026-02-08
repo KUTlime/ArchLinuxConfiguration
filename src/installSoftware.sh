@@ -3,6 +3,8 @@ yay -Sy brave-bin --noconfirm
 yay -Sy visual-studio-code-bin --noconfirm
 yay -Sy powershell-bin --noconfirm
 yay -Sy enpass-bin --noconfirm
+yay -Sy onedrive-abraunegg --noconfirm
+sudo pacman -Sy rclone --noconfirm
 sudo pacman -Sy gemini-cli --noconfirm
 sudo pacman -Sy dotnet-sdk aspnet-runtime --noconfirm
 sudo pacman -S krusader --noconfirm
@@ -20,3 +22,9 @@ sudo pacman -U ./docker-desktop-x86_64.pkg.tar.zst
 cd ~
 
 yay -S rider --noconfirm
+
+# Post-Install configuration
+rclone config
+mkdir -p /home/radek/Dokumenty/OneDrive
+rclone mount OneDrive: /home/radek/Dokumenty/OneDrive --vfs-cache-mode writes --daemon
+

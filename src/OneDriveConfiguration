@@ -1,0 +1,47 @@
+# OneDrive
+
+mkdir -p /home/radek/Dokumenty/OneDrive
+
+nano ~/.config/systemd/user/rclone-onedrive.service
+
+
+[Unit]
+Description=Rclone OneDrive Mount
+Documentation=http://rclone.org/docs/
+# Čekat na připojení k síti
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+# Příkaz pro spuštění (%h je zástupný znak pro tvůj domovský adresář /home/radek)
+ExecStart=/usr/bin/rclone mount OneDrive: %h/Dokumenty/OneDrive \
+   --vfs-cache-mode writes \
+   --log-level INFO \
+   --log-file /tmp/rclone-onedrive.log
+
+# Příkaz pro bezpečné ukončení
+ExecStop=/bin/fusermount -u %h/Dokumenty/OneDrive
+
+# Restartovat při pádu
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+
+
+
+  3. Aktivace služby
+  Teď musíš systému říct, že má tuto novou službu používat.
+
+   1. Načti změny v konfiguraci:
+   1     systemctl --user daemon-reload
+
+   2. Povol spouštění po startu:
+   1     systemctl --user enable rclone-onedrive
+
+   3. Spusť službu hned teď (abys nemusel restartovat PC):
+
+   1     systemctl --user start rclone-onedrive
+
